@@ -1,4 +1,4 @@
-#FED789FF, #023743FF, #72874EFF, #476F84FF, #A4BED5FF, #453947FF
+#FED789FF, #023743FF, #476F84, #72874EFF, #A4BED5FF, #453947FF
 
 
 dane=dane_do_zestawu_17
@@ -22,7 +22,7 @@ rozkład_liczebności <- table(dane$Wielkość)
 rozkład_liczebności_df <- as.data.frame(rozkład_liczebności)
 colnames(rozkład_liczebności_df) <- c("Kategoria wielkości", "Liczebność")
 
-barplot(rozkład_liczebności, ylim=c(0,100), main="Rozkład liczebności spółek", xlab="Kategoria wielkości", ylab="Liczebność", col=c("#FED789FF", "#023743FF", "#72874EFF"))
+barplot(rozkład_liczebności, ylim=c(0,100), main="Rozkład liczebności spółek", xlab="Kategoria wielkości", ylab="Liczebność", col=c("#FED789FF", "#476F84", "#72874EFF"))
 
 
 #ZADANIE 2
@@ -101,6 +101,8 @@ r_duże=rbind(śr_duże, odchyl_duże, mediana_duże, q1_duże, q2_duże, xmin_d
 
 #CAŁA TABELKA - zmienić nazwy, zweryfikować
 cbind(r_małe, r_średnie, r_duże)
+
+write.csv(cbind(r_małe, r_średnie, r_duże))
 
 
   
