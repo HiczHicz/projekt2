@@ -16,13 +16,13 @@ D7=quantile(dane$WielkośćSpółki, probs=.7)
 dane$Wielkość <- cut(dane$WielkośćSpółki,
                                breaks = c(-Inf, D3, D7, Inf),
                                labels = c("mała", "średnia", "duża"))
-View(dane)
+#View(dane)
 
 rozkład_liczebności <- table(dane$Wielkość)
 rozkład_liczebności_df <- as.data.frame(rozkład_liczebności)
 colnames(rozkład_liczebności_df) <- c("Kategoria wielkości", "Liczebność")
 
-barplot(rozkład_liczebności, ylim=c(0,100), main="Rozkład liczebności spółek", xlab="Kategoria wielkości", ylab="Liczebność", col=c("#FED789FF", "#476F84", "#72874EFF"))
+barplot(rozkład_liczebności, ylim=c(0,100), main="Rozkład liczebności spółek", xlab="Kategoria wielkości", ylab="Liczebność", col=c("#476F84", "#72874EFF", "#A95244"))
 
 
 #ZADANIE 2
@@ -33,6 +33,8 @@ małe_spółki <- dane[dane$Wielkość == "mała", ]
 #odchylenie
 n1=length(małe_spółki$WskaźnikCZ)
 odchyl_małe=sqrt(1/n1*sum((małe_spółki$WskaźnikCZ-śr_małe)^2))
+
+
 #mediana
 mediana_małe=median(małe_spółki$WskaźnikCZ)
 #Q1
@@ -102,7 +104,7 @@ r_duże=rbind(śr_duże, odchyl_duże, mediana_duże, q1_duże, q2_duże, xmin_d
 #CAŁA TABELKA - zmienić nazwy, zweryfikować
 cbind(r_małe, r_średnie, r_duże)
 
-write.csv(cbind(r_małe, r_średnie, r_duże))
+#write.csv(cbind(r_małe, r_średnie, r_duże))
 
 
   

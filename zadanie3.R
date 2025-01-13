@@ -477,7 +477,186 @@ legend("topright", legend=c("Grupa małych firm", "Grupa średnich firm", "Grupa
 
 
 
-#FED789FF
+#ZADANIE 6
+#ŚREDNIE
+
+sum(nowe_środki_m*liczebność_m)/n_m
+sum(nowe_środki_s*liczebność_s)/n_s
+sum(nowe_środki_d*liczebność_d)/n_d
+
+#ODCHYLENIE
+średnia_zgr_m <- sum(nowe_środki_m*liczebność_m)/n_m
+wariancja_m <- sum(liczebność_m * (nowe_środki_m - średnia_zgr_m)^2) / n_m
+odchylenie_standardowe_m <- sqrt(wariancja_m)
+odchylenie_standardowe_m
+
+średnia_zgr_s <- sum(nowe_środki_s*liczebność_s)/n_s
+wariancja_s <- sum(liczebność_s * (nowe_środki_s - średnia_zgr_s)^2) / n_s
+odchylenie_standardowe_s <- sqrt(wariancja_s)
+odchylenie_standardowe_s
+
+średnia_zgr_d <- sum(nowe_środki_d*liczebność_d)/n_d
+wariancja_d <- sum(liczebność_d * (nowe_środki_d - średnia_zgr_d)^2) / n_d
+odchylenie_dtandardowe_d <- sqrt(wariancja_d)
+odchylenie_dtandardowe_d
+
+#MEDIANA
+
+#MAŁE
+#n - parzysta, czyli
+mediana_pozycja_m=n_m/2+1
+suma_liczebność_m=cumsum(liczebność_m)
+klasa_mediana_m=which(suma_liczebność_m>=mediana_pozycja_m)[1]
+mediana_m=lewy_kr_m[4]+(b_m/liczebność_m[4])*(n_m/2-sum(liczebność_m[1:(klasa_mediana_m-1)]))
+
+#ŚREDNIE
+mediana_pozycja_s=(n_s+1)/2
+suma_liczebność_s=cumsum(liczebność_s)
+klasa_mediana_s=which(suma_liczebność_s>=mediana_pozycja_s)[1]
+mediana_s=lewy_kr_s[klasa_mediana_s]+(b_s/liczebność_s[klasa_mediana_s])*(n_s/2-sum(liczebność_s[1:(klasa_mediana_s-1)]))
+mediana_s
+
+# DUŻE
+mediana_pozycja_d=(n_d+1)/2
+suma_liczebność_d=cumsum(liczebność_d)
+klasa_mediana_d=which(suma_liczebność_d>=mediana_pozycja_d)[1]
+mediana_d=lewy_kr_d[klasa_mediana_d]+(b_d/liczebność_d[klasa_mediana_d])*(n_d/2-sum(liczebność_d[1:(klasa_mediana_d-1)]))
+mediana_d
+
+#WSPÓŁCZYNNIK ASYMETRII
+e3_m=sum(liczebność_m * (nowe_środki_m - średnia_zgr_m)^3) / n_m
+wsp_m=e3_m/odchylenie_standardowe_m^3
+#KURTOZA
+e4_m=sum(liczebność_m * (nowe_środki_m - średnia_zgr_m)^4) / n_m
+kurtoza_m=e4_m/odchylenie_standardowe_m^4-3
+
+#WSPÓŁCZYNNIK ASYMETRII ŚREDNIE
+e3_s=sum(liczebność_s * (nowe_środki_s - średnia_zgr_s)^3) / n_s
+wsp_s=e3_s/odchylenie_standardowe_s^3
+#KURTOZA
+e4_s=sum(liczebność_s * (nowe_środki_s - średnia_zgr_s)^4) / n_s
+kurtoza_s=e4_s/odchylenie_standardowe_s^4-3
+
+#WSPÓŁCZYNNIK ASYMETRII DUŻE
+e3_d=sum(liczebność_d * (nowe_środki_d - średnia_zgr_d)^3) / n_d
+wsp_d=e3_d/odchylenie_dtandardowe_d^3
+#KURTOZA
+e4_d=sum(liczebność_d * (nowe_środki_d - średnia_zgr_d)^4) / n_d
+kurtoza_d=e4_d/odchylenie_dtandardowe_d^4-3
+
+
+#KWARTYLE MAŁE
+n_m  # całkowita liczebność
+kwartyl1_pozycja_m <- n_m/4
+kwartyl3_pozycja_m <- 3*n_m/4
+# Znajdowanie indeksu klasy l dla Q1
+suma_liczebność_m <- cumsum(liczebność_m)  # skumulowane liczebności
+l_m <- which(suma_liczebność_m >= kwartyl1_pozycja_m)[1]
+p_m <- which(suma_liczebność_m >= kwartyl3_pozycja_m)[1]
+lewy_kr_m
+# Wartości potrzebne do obliczeń
+lewy_kr_m_l <- lewy_kr_m[l_m]  # dolna granica l-tej klasy
+b_m    # szerokość l-tej klasy
+n_l_m <- liczebność[l_m]   # liczebność l-tej klasy
+lewy_kr_m_p <- lewy_kr_m[p_m]  # dolna granica p-tej klasy
+b_m    # szerokość p-tej klasy
+n_p_m <- liczebność[p_m]   # liczebność p-tej klasy
+# Obliczenia dla Q1
+Q1_m <- lewy_kr_m_l + (b_m / n_l_m) * (n_m/4 - sum(liczebność_m[1:(l_m-1)]))
+# Obliczenia dla Q3
+Q3_m <- lewy_kr_m_p + (b_m / n_p_m) * (3*n_m/4 - sum(liczebność_m[1:(p_m-1)]))
+# Wyświetlenie wyników
+Q1_m
+Q3_m
+
+#KWARTYLE ŚREDNIE
+n_s  # całkowita liczebność
+kwartyl1_pozycja_s <- n_s/4
+kwartyl3_pozycja_s <- 3*n_s/4
+# Znajdowanie indeksu klasy l dla Q1
+suma_liczebność_s <- cumsum(liczebność_s)  # skumulowane liczebności
+l_s <- which(suma_liczebność_s >= kwartyl1_pozycja_s)[1]
+p_s <- which(suma_liczebność_s >= kwartyl3_pozycja_s)[1]
+lewy_kr_s
+# Wartości potrzebne do obliczeń
+lewy_kr_s_l <- lewy_kr_s[l_s]  # dolna granica l-tej klasy
+b_s    # szerokość l-tej klasy
+n_l_s <- liczebność[l_s]   # liczebność l-tej klasy
+lewy_kr_s_p <- lewy_kr_s[p_s]  # dolna granica p-tej klasy
+b_s    # szerokość p-tej klasy
+n_p_s <- liczebność[p_s]   # liczebność p-tej klasy
+# Obliczenia dla Q1
+Q1_s <- lewy_kr_s_l + (b_s / n_l_s) * (n_s/4 - sum(liczebność_s[1:(l_s-1)]))
+# Obliczenia dla Q3
+Q3_s <- lewy_kr_s_p + (b_s / n_p_s) * (3*n_s/4 - sum(liczebność_s[1:(p_s-1)]))
+# Wyświetlenie wyników
+Q1_s
+Q3_s
+
+#KWARTYLE DUŻE
+n_d  # całkowita liczebność
+kwartyl1_pozycja_d <- n_d/4
+kwartyl3_pozycja_d <- 3*n_d/4
+# Znajdowanie indeksu klasy l dla Q1
+suma_liczebność_d <- cumsum(liczebność_d)  # skumulowane liczebności
+l_d <- which(suma_liczebność_d >= kwartyl1_pozycja_d)[1]
+p_d <- which(suma_liczebność_d >= kwartyl3_pozycja_d)[1]
+lewy_kr_d
+# Wartości potrzebne do obliczeń
+lewy_kr_d_l <- lewy_kr_d[l_d]  # dolna granica l-tej klasy
+b_d    # szerokość l-tej klasy
+n_l_d <- liczebność[l_d]   # liczebność l-tej klasy
+lewy_kr_d_p <- lewy_kr_d[p_d]  # dolna granica p-tej klasy
+b_d    # szerokość p-tej klasy
+n_p_d <- liczebność[p_d]   # liczebność p-tej klasy
+# Obliczenia dla Q1
+Q1_d <- lewy_kr_d_l + (b_d / n_l_d) * (n_d/4 - sum(liczebność_d[1:(l_d-1)]))
+# Obliczenia dla Q3
+Q3_d <- lewy_kr_d_p + (b_d / n_p_d) * (3*n_d/4 - sum(liczebność_d[1:(p_d-1)]))
+# Wyświetlenie wyników
+Q1_d
+Q3_d
 
 
 
+#KWARTYLE Q1 MAŁE
+kwantyl_pozycja_m=(n_m+1)/4
+suma_liczebność_m=cumsum(liczebność_m)
+klasa_kwantyl_m=which(suma_liczebność_m>=kwantyl_pozycja_m)[1]
+Q1_m=lewy_kr_m[klasa_kwantyl_m]+(b_m/liczebność_m[klasa_kwantyl_m])*(n_m/4-sum(liczebność_m[1:(klasa_kwantyl_m-1)]))
+Q1_m
+
+#ŚREDNIE
+kwantyl_pozycja_s=(n_s+1)/4
+suma_liczebność_s=cumsum(liczebność_s)
+klasa_kwantyl_s=which(suma_liczebność_s>=kwantyl_pozycja_s)[1]
+Q1_s=lewy_kr_s[klasa_kwantyl_s]+(b_s/liczebność_s[klasa_kwantyl_s])*(n_s/4-sum(liczebność_s[1:(klasa_kwantyl_s-1)]))
+Q1_s
+
+#DUŻE
+kwantyl_pozycja_d=(n_d+1)/4
+suma_liczebność_d=cumsum(liczebność_d)
+klasa_kwantyl_d=which(suma_liczebność_d>=kwantyl_pozycja_d)[1]
+Q1_d=lewy_kr_d[klasa_kwantyl_d]+(b_d/liczebność_d[klasa_kwantyl_d])*(n_d/4-sum(liczebność_d[1:(klasa_kwantyl_d-1)]))
+Q1_d
+
+#KWANTYLE Q3 MAŁE
+kwantyl_pozycja_m=(3*(n_m+1))/4
+suma_liczebność_m=cumsum(liczebność_m)
+klasa_kwantyl_m=which(suma_liczebność_m>=kwantyl_pozycja_m)[1]
+Q1_m=lewy_kr_m[klasa_kwantyl_m]+(b_m/liczebność_m[klasa_kwantyl_m])*((3*n_m)/4-sum(liczebność_m[1:(klasa_kwantyl_m-1)]))
+Q1_m
+
+#ŚREDNIE
+kwantyl_pozycja_s=(3*(n_s+1))/4
+suma_liczebność_s=cumsum(liczebność_s)
+klasa_kwantyl_s=which(suma_liczebność_s>=kwantyl_pozycja_s)[1]
+Q1_s=lewy_kr_s[klasa_kwantyl_s]+(b_s/liczebność_s[klasa_kwantyl_s])*((3*n_s)/4-sum(liczebność_s[1:(klasa_kwantyl_s-1)]))
+Q1_s
+
+#DUŻE
+kwantyl_pozycja_d=(3*(n_d+1))/4
+suma_liczebność_d=cumsum(liczebność_d)
+klasa_kwantyl_d=which(suma_liczebność_d>=kwantyl_pozycja_d)[1]
+Q1_d=lewy_kr_d[klasa_kwantyl_d]+(b_d/liczebność_d[klasa_kwantyl_d])*((3*n_d)/4-sum(liczebność_d[1:(klasa_kwantyl_d-1)]))
+Q1_d
